@@ -15,6 +15,13 @@
       "when": 1716553835328,
       "tag": "0001_pretty_thunderbolt_ross",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1717012186128,
+      "tag": "0002_bouncy_unicorn",
+      "breakpoints": true
     }
   ]
 }
