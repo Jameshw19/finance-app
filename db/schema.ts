@@ -17,4 +17,7 @@ export const categories = pgTable("categories", {
   userId: text("user_id").notNull(),
 });
 
+export const insertCategorySchema = createInsertSchema(categories);
+
+
 
