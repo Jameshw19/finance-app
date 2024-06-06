@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/date-picker";
 import { Button } from "@/components/ui/button";
 import { insertTransactionSchema } from "@/db/schema";
 import {
@@ -76,6 +77,21 @@ export const TransactionForm = ({
         className="space-y-4 pt-4"
       >
         <FormField
+          name="date"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <DatePicker
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={disabled}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
           name="accountId"
           control={form.control}
           render={({ field }) => (
@@ -108,6 +124,22 @@ export const TransactionForm = ({
                   value={field.value}
                   onChange={field.onChange}
                   disabled={disabled}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="payee"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Payee</FormLabel>
+              <FormControl>
+                <Input
+                  disabled={disabled}
+                  placeholder="Add a payee"
+                  {...field}
                 />
               </FormControl>
             </FormItem>
