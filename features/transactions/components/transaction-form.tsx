@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { DatePicker } from "@/components/date-picker";
 import { Button } from "@/components/ui/button";
 import { insertTransactionSchema } from "@/db/schema";
+import { AmountInput } from "@/components/amount-input";
 import {
   Form,
   FormControl,
@@ -17,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Select } from "@/components/select";
 import { Textarea } from "@/components/ui/textarea";
+import { convertAmountToMiliunits } from "@/lib/utils";
 
 const formSchema = z.object({
   date: z.coerce.date(),
@@ -63,8 +65,13 @@ export const TransactionForm = ({
   });
 
   const handleSubmit = (values: FormValues) => {
-    console.log({ values });
-    // onSubmit(values);
+    const amount = parseFloat(values.amount);
+    const amountInMiliUnits = convertAmountToMiliunits(amount);
+
+    onSubmit({
+      ...values,
+      amount: amountInMiliUnits,
+    });
   };
 
   const handleDelete = () => {
@@ -147,6 +154,22 @@ export const TransactionForm = ({
           )}
         />
         <FormField
+          name="amount"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Amount</FormLabel>
+              <FormControl>
+                <AmountInput
+                  {...field}
+                  disabled={disabled}
+                  placeholder="0.00"
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
           name="notes"
           control={form.control}
           render={({ field }) => (
@@ -164,7 +187,7 @@ export const TransactionForm = ({
           )}
         />
         <Button className="w-full " disabled={disabled}>
-          {id ? "Save changes" : "Create Account"}
+          {id ? "Save changes" : "Create Transaction"}
         </Button>
 
         {!!id && (
@@ -176,7 +199,7 @@ export const TransactionForm = ({
             variant="outline"
           >
             <Trash className="size-4 mr-2" />
-            Delete account
+            Delete transaction
           </Button>
         )}
       </form>
