@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { format, parse } from "date-fns";
 import { ImportTable } from "./import-table";
 import { convertAmountToMiliunits } from "@/lib/utils";
+import { format, parse } from "date-fns";
 
 const dateFormat = "yyyy-MM-dd HH:mm:ss";
 const outputFormat = "yyyy-MM-dd";
@@ -72,6 +72,8 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
         .filter((row) => row.length > 0),
     };
 
+    // console.log({ mappedData });
+
     const arrayOfData = mappedData.body.map((row) => {
       return row.reduce((acc: any, cell, index) => {
         const header = mappedData.headers[index];
@@ -81,6 +83,7 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
         return acc;
       }, {});
     });
+    // console.log({ arrayOfData });
     const formattedData = arrayOfData.map((item) => ({
       ...item,
       amount: convertAmountToMiliunits(parseFloat(item.amount)),
