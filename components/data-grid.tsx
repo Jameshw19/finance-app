@@ -22,7 +22,6 @@ export const DataGrid = () => {
         value={data?.remainingAmount}
         percentageChange={data?.remainingChange}
         icon={FaPiggyBank}
-        variant="default"
         dateRange={dateRangeLabel}
       />
     </div>
